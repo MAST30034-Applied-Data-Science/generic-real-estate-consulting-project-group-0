@@ -48,23 +48,25 @@ for page in N_PAGES:
         # if its a property address, add it to the list
         if 'address' in link['class']:
             url_links.append(link['href'])
-
-
+print("c1")
+# print(url_links)
 # for each url, scrape some basic metadata
 for property_url in url_links[1:]:
-    bs_object = BeautifulSoup(requests.get(url, headers = headers).text, "html.parser")
-    
+    print("c2")
+    # bs_object = BeautifulSoup(urlopen(url), "lxml")
+    print(bs_object)
+    bs_object = BeautifulSoup(requests.get(property_url, headers = headers).text, "html.parser")
 
     # looks for the header class to get property name
     property_metadata[property_url]['name'] = bs_object \
         .find("h1", {"class": "css-164r41r"}) \
         .text
-
+    print(property_metadata[property_url]['name'])
     # looks for the div containing a summary title for cost
     property_metadata[property_url]['cost_text'] = bs_object \
         .find("div", {"data-testid": "listing-details__summary-title"}) \
         .text
-
+    print(property_metadata[property_url]['cost_text'])
     # extract coordinates from the hyperlink provided
     # i'll let you figure out what this does :P
     property_metadata[property_url]['coordinates'] = [
@@ -78,6 +80,7 @@ for property_url in url_links[1:]:
                 .attrs['href']
         )[0].split(',')
     ]
+    print(property_metadata[property_url]['coordinates'])
 
     property_metadata[property_url]['rooms'] = [
         re.findall(r'\d\s[A-Za-z]+', feature.text)[0] for feature in bs_object \
