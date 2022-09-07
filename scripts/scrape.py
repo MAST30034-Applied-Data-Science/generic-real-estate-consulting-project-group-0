@@ -15,6 +15,10 @@ from collections import defaultdict
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
+import requests
+
+headers = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppelWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
+
 # constants
 BASE_URL = "https://www.domain.com.au"
 N_PAGES = range(1, 51) # update this to your liking
@@ -26,7 +30,7 @@ property_metadata = defaultdict(dict)
 # generate list of urls to visit
 for page in N_PAGES:
     url = BASE_URL + f"/rent/melbourne-region-vic/?sort=price-desc&page={page}"
-    bs_object = BeautifulSoup(urlopen(url), "lxml")
+    bs_object = BeautifulSoup(requests.get(url, headers = headers).text, "html.parser")
 
     # find the unordered list (ul) elements which are the results, then
     # find all href (a) tags that are from the base_url website.
@@ -44,22 +48,25 @@ for page in N_PAGES:
         # if its a property address, add it to the list
         if 'address' in link['class']:
             url_links.append(link['href'])
-
-
+print("c1")
+# print(url_links)
 # for each url, scrape some basic metadata
 for property_url in url_links[1:]:
-    bs_object = BeautifulSoup(urlopen(property_url), "lxml")
+    print("c2")
+    # bs_object = BeautifulSoup(urlopen(url), "lxml")
+    print(bs_object)
+    bs_object = BeautifulSoup(requests.get(property_url, headers = headers).text, "html.parser")
 
     # looks for the header class to get property name
     property_metadata[property_url]['name'] = bs_object \
         .find("h1", {"class": "css-164r41r"}) \
         .text
-
+    print(property_metadata[property_url]['name'])
     # looks for the div containing a summary title for cost
     property_metadata[property_url]['cost_text'] = bs_object \
         .find("div", {"data-testid": "listing-details__summary-title"}) \
         .text
-
+    print(property_metadata[property_url]['cost_text'])
     # extract coordinates from the hyperlink provided
     # i'll let you figure out what this does :P
     property_metadata[property_url]['coordinates'] = [
@@ -73,6 +80,7 @@ for property_url in url_links[1:]:
                 .attrs['href']
         )[0].split(',')
     ]
+    print(property_metadata[property_url]['coordinates'])
 
     property_metadata[property_url]['rooms'] = [
         re.findall(r'\d\s[A-Za-z]+', feature.text)[0] for feature in bs_object \
