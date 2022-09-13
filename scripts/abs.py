@@ -29,3 +29,8 @@ urlretrieve('https://www.abs.gov.au/statistics/people/population/regional-popula
 
 # doanload school locations
 urlretrieve('https://www.education.vic.gov.au/Documents/about/research/datavic/dv331_schoollocations2022.csv', f"{output_relative_dir}/schools.csv")
+
+# download postcode data
+# see https://github.com/matthewproctor/australianpostcodes/blob/master/README.md 
+# for documentations
+urlretrieve('https://raw.githubusercontent.com/matthewproctor/australianpostcodes/master/australian_postcodes.csv', f"{output_relative_dir}/australian_postcodes.csv")
