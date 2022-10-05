@@ -34,3 +34,11 @@ urlretrieve('https://www.education.vic.gov.au/Documents/about/research/datavic/d
 # see https://github.com/matthewproctor/australianpostcodes/blob/master/README.md 
 # for documentations
 urlretrieve('https://raw.githubusercontent.com/matthewproctor/australianpostcodes/master/australian_postcodes.csv', f"{output_relative_dir}/australian_postcodes.csv")
+
+
+# https://www.gen-agedcaredata.gov.au/www_aihwgen/media/Population-Projections-2019/Victoria.csv
+# population_projection.csv
+
+
+# https://www.healthcollect.vic.gov.au/HospitalLists/ExportList.aspx?List=MainHospitalList
+# hospitals.csv
