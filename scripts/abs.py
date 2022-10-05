@@ -38,3 +38,7 @@ urlretrieve('https://raw.githubusercontent.com/matthewproctor/australianpostcode
 
 # https://www.gen-agedcaredata.gov.au/www_aihwgen/media/Population-Projections-2019/Victoria.csv
 # population_projection.csv
+
+
+# https://www.healthcollect.vic.gov.au/HospitalLists/ExportList.aspx?List=MainHospitalList
+# hospitals.csv
