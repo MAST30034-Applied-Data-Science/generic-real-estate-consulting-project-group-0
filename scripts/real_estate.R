@@ -1,9 +1,19 @@
-#written by : Stefan Solagratio Simanjuntak/1039092
+install.packages("randomForest")
+library(randomForest)
+data <- read.csv(file = '../data/curated/R_full_listing.csv')
+
+model <- lm(weekly_rent ~ . -X, data=data)
+summary(model)
+model2 <- step(model, scope=~.,trace = FALSE)
+summary(model2)
+
+
+
+
 
 library(faraway)
 
-data <- read.csv(
-  file = 'generic-real-estate-consulting-project-group-0/notebooks/final.csv')
+
 
 # Plotting Interactions
 
