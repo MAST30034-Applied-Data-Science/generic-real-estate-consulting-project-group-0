@@ -1,5 +1,5 @@
 # Generic Real Estate Consulting Project
-## Group 0
+## Group 0 (authors)
 - Anthony He; 1133985; anthony.he@student.unimelb.edu.au
 - Junbo Hu; 1038361; junboh@student.unimelb.edu.au
 - Stefan Solagratio Simanjuntak; 1039092; ssimanjuntak@student.unimelb.edu.au
